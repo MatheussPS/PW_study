@@ -18,7 +18,7 @@ public class ConexaoController {
 
     private final ConexaoService conexaoService;
 
-    @Autowired
+
     public ConexaoController(ConexaoService conexaoService) {
         this.conexaoService = conexaoService;
     }

@@ -14,4 +14,8 @@ public interface MonitorRepository extends JpaRepository<Monitor, Long> {
 
     Optional<Monitor> findByIdDisciplina(Disciplina idDisciplina);
 
+    Optional<Monitor> findByWhatsapp(String whatsapp);
+
+    Optional<Monitor> findByEmail(String email);
+
 }
