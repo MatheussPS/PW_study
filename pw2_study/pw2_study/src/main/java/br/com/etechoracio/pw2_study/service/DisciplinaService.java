@@ -1,5 +1,6 @@
 package br.com.etechoracio.pw2_study.service;
 
+import br.com.etechoracio.pw2_study.dtos.UpdateDisciplinaDto;
 import br.com.etechoracio.pw2_study.entity.Disciplina;
 import br.com.etechoracio.pw2_study.exception.DisciplinaAlreadyExistsException;
 import br.com.etechoracio.pw2_study.exception.DisciplinaNotFoundException;
@@ -40,13 +41,26 @@ public class DisciplinaService {
     }
 
     public void deleteDisciplinaById(Long id){
-        var disciplina = getDisciplinaById(id); // if doesn't exists, throws exception
+        var disciplina = getDisciplinaById(id); // if it doesn't exist, throws exception
         var isMonitorPresent = monitorService.findByDisicplinaID(disciplina);
 
         if (isMonitorPresent) throw new MonitorIsInDisciplinaException();
 
 
         disciplinaRepository.deleteById(id);
+    }
+
+    public Disciplina updateDisciplinaById(Long id, UpdateDisciplinaDto model){
+
+        var doesNameExist = disciplinaRepository.findByTxNome(model.nome()).isPresent();
+        if(doesNameExist){
+            throw new DisciplinaAlreadyExistsException();
+        }
+
+        var disciplina = getDisciplinaById(id);
+        disciplina.setTxNome(model.nome());
+
+        return disciplinaRepository.save(disciplina);
     }
 
 }

@@ -30,7 +30,7 @@ public class RestExcepitonsHandler {
     @ExceptionHandler(MonitorWhatsappAlreadyExists.class)
     private ResponseEntity<ExceptionsDto> monitorWhatsappAlreadyExistsHandler(MonitorWhatsappAlreadyExists e){
         var mensagem = e.getMessage();
-        var status = HttpStatus.BAD_REQUEST
+        var status = HttpStatus.BAD_REQUEST;
         return ResponseEntity.status(status).body(new ExceptionsDto(status, mensagem));
     }
 

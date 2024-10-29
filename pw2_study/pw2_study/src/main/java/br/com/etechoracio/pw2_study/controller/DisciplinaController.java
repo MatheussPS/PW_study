@@ -2,6 +2,7 @@
 
 package br.com.etechoracio.pw2_study.controller;
 
+import br.com.etechoracio.pw2_study.dtos.UpdateDisciplinaDto;
 import br.com.etechoracio.pw2_study.entity.Disciplina;
 import br.com.etechoracio.pw2_study.service.DisciplinaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +38,14 @@ public class DisciplinaController {
     }
 
     @DeleteMapping(path = "deletar/id/{id}")
-    public ResponseEntity<String> deleteDisciplinaById(@PathVariable Long id){
+    public ResponseEntity<String> deleteDisciplinaById(@PathVariable("id") Long id){
         disciplinaService.deleteDisciplinaById(id);
         return ResponseEntity.status(HttpStatus.OK).body("Discplina deletada!");
+    }
+
+    @PutMapping(path = "update/id/{id}")
+    public ResponseEntity<Disciplina> updateDisciplinaById(@PathVariable("id") Long id, @RequestBody UpdateDisciplinaDto nome){
+        return ResponseEntity.status(HttpStatus.OK).body(disciplinaService.updateDisciplinaById(id, nome));
     }
 
 }
